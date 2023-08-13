@@ -1,0 +1,23 @@
+{
+  "name": "l2t2-matrimony",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dezade/L2T2-Matrimony.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dezade/L2T2-Matrimony/issues"
+  },
+  "homepage": "https://github.com/dezade/L2T2-Matrimony#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "oracledb": "^6.0.3"
+  }
+}

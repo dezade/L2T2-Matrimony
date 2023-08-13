@@ -1,0 +1,34 @@
+/*** SQL Plus ***/
+
+1.  Open SQL Plus
+
+2.  Username: sys as sysdba
+    Password: <press Enter>
+
+3.  Enter the following commands in order:
+    show pdbs
+    alter pluggable database orclpdb open;
+    alter session set container=ORCLPDB;
+    create user MATRIMONY identified by matrimony;
+    grant all privileges to MATRIMONY;
+    alter user MATRIMONY quota unlimited on users;
+
+4.  Enter the following command to check the connection:
+    select username, account_status from dba_users where username='MATRIMONY';
+
+
+/*** NAVICAT ***/
+
+1.  Open a new connection
+    Connection name: <your choice>
+    Service name: orclpdb
+    username: MATRIMONY
+    password: matrimony
+
+2.  Select the newly created connection and open the MATRIMONY schema
+
+3.  Open a new query tab
+
+4.  Copy and paste the contents of the "init.sql" file
+
+5.  Run the query
