@@ -9,7 +9,7 @@ function About() {
       </p>
       Thanks for your support.<br></br>
       Sincerely yours,<br></br>
-      Md. Zim-Mim Siddiqe Sowdha<br></br>
+      Md Zim Mim Siddiqee Sowdha<br></br>
       A.H.M Towfique Mahmud
     </div>
   );
