@@ -7,7 +7,8 @@
     height: 360px;
     border: 1px solid #000; /* Add a slim black border */
     overflow: hidden;
-    margin: 100px auto 0; /* Add margin-top of 100px and center horizontally */
+    margin: 100px auto 0;
+    margin-bottom: 250px; /* Add margin-top of 100px and center horizontally */
   }
   
   .slideshow-image {

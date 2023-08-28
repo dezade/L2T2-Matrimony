@@ -40,7 +40,7 @@ function SignUp() {
 
   return (
     <div className="signup-container">
-      <h2>Sign Up</h2>
+      <h2>Sign Up Form</h2>
 
 
       <div className="input-container">
