@@ -1,0 +1,18 @@
+/* src/components/Home.css */
+.slideshow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 640px;
+    height: 360px;
+    border: 1px solid #000; /* Add a slim black border */
+    overflow: hidden;
+    margin: 100px auto 0; /* Add margin-top of 100px and center horizontally */
+  }
+  
+  .slideshow-image {
+    width: 100%;
+    height: auto;
+    transition: opacity 1s ease-in-out;
+  }
+  
