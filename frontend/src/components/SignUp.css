@@ -7,7 +7,8 @@
     justify-content: center;
     height: 100vh;
     text-align: center;
-    margin-top: 150px; /* Add margin to separate from the header */
+    margin-top: 150px; 
+    margin-bottom: 250px;/* Add margin to separate from the header */
   }
   
   
