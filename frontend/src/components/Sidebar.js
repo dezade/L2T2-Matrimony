@@ -1,17 +1,19 @@
-// Sidebar.js
+// src/components/Sidebar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Sidebar.css'; // Import the CSS file for styling
+import './Sidebar.css'; // Import the CSS file
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
   return (
-    <div className="sidebar">
-      <ul className="menu">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About Us</Link></li>
-        <li><Link to="/services">Services</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <ul>
+        <li><a href="/">Menu Item 1</a></li>
+        <li><a href="/">Menu Item 2</a></li>
+        <li><a href="/">Menu Item 3</a></li>
+        {/* Add more menu items as needed */}
       </ul>
+      <button className="close-button" onClick={onClose}>
+        Close
+      </button>
     </div>
   );
 }

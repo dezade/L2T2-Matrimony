@@ -1,15 +1,26 @@
 // src/components/Header.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'; // Import the CSS file
+import Sidebar from './Sidebar';
 
 function Header() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleSidebarClose = () => {
+    setSidebarOpen(false);
+  };
+
   return (
     <header className="header-container">
-      <div className="logo">
-        <Link to="/">
-          <img src="https://stock.adobe.com/search?k=matrimony+logo" alt="Logo" />
-        </Link>
+      <div className={`hamburger-icon ${sidebarOpen ? 'open' : ''}`} onClick={handleSidebarToggle}>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
       </div>
       <div className="title">
         <Link to="/">
@@ -24,9 +35,9 @@ function Header() {
           <li><a href="/about">About Us</a></li>
         </ul>
       </nav>
+      <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
     </header>
   );
 }
 
 export default Header;
-
