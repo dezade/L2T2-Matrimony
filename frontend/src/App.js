@@ -7,7 +7,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import About from './components/About';
-import Profile from './components/Profile'; // Import the Profile component
+import Profile from './components/Profile';
 
 function App() {
   return (

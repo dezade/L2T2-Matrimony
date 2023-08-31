@@ -1,19 +1,62 @@
 /* src/components/Home.css */
 .slideshow-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 640px;
-    height: 360px;
-    border: 1px solid #000; /* Add a slim black border */
-    overflow: hidden;
-    margin: 100px auto 0;
-    margin-bottom: 250px; /* Add margin-top of 100px and center horizontally */
-  }
-  
-  .slideshow-image {
-    width: 100%;
-    height: auto;
-    transition: opacity 1s ease-in-out;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 640px;
+  height: 360px;
+  border: 1px solid #000;
+  overflow: hidden;
+  position: relative;
+  margin: 100px auto 0;
+}
+
+.slideshow-image {
+  width: 100%;
+  height: auto;
+  transition: transform 1s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slideshow-image.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slideshow-image.previous {
+  opacity: 1;
+  transform: translateX(-100%);
+}
+
+.button-container {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-box {
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+  padding: 5px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0px;
+}
+
+.button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+.button:hover {
+  color: #ff0000;
+}
