@@ -10,37 +10,13 @@ function Login() {
 
   const navigate = useNavigate();
 
-  // const handleLogin = () => {
-  //   if (email === password) {
-  //     navigate('/profile');
-  //   } else {
-  //     setErrorMessage('Incorrect username or password.');
-  //   }
-  // };
-
-  const handleLogin = async () => {
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok && data.success) {
-        navigate('/profile');
-      } else {
-        setErrorMessage(data.message || 'Incorrect email or password.');
-      }
-    } catch (error) {
-      console.error('Error: ', error);
-      setErrorMessage('An error occurred.');
+  const handleLogin = () => { // Dummy logic for purpose
+    if (email === password) {
+      navigate('/profile', {state: {email}}); // I want to send the variable 'email' in this condition
+    } else {
+      setErrorMessage('Incorrect username or password.');
     }
   };
-  
 
   // const handleLogin = async () => {
   //   try {
@@ -49,22 +25,22 @@ function Login() {
   //       headers: {
   //         'Content-Type': 'application/json'
   //       },
-  //       body: JSON.stringify({ username, password })
+  //       body: JSON.stringify({ email, password })
   //     });
-
+  
   //     const data = await response.json();
-
+  
   //     if (response.ok && data.success) {
   //       navigate('/profile');
   //     } else {
-  //       setErrorMessage(data.message || 'Incorrect username or password.');
+  //       setErrorMessage(data.message || 'Incorrect email or password.');
   //     }
   //   } catch (error) {
   //     console.error('Error: ', error);
   //     setErrorMessage('An error occurred.');
   //   }
   // };
-
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

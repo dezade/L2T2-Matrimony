@@ -7,7 +7,7 @@
     height: 100%;
     background-color: #fff;
     transition: left 0.3s ease;
-    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
   }
   
   .sidebar.open {
@@ -17,10 +17,17 @@
   .sidebar ul {
     list-style: none;
     padding: 20px;
+    margin-top: 50px;
   }
   
   .sidebar ul li {
     margin-bottom: 10px;
+    border-top: 1px solid #ccc; /* Add a thin border at the top of each menu item */
+    transition: background-color 0.3s; /* Add a transition for smooth color change on hover */
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #b5b5b5; /* Change background color on hover */
   }
   
   .sidebar a {
@@ -31,7 +38,7 @@
   
   .close-button {
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     left: 20px;
     padding: 10px 20px;
     background-color: #333;
