@@ -1,0 +1,35 @@
+/* src/components/About.css */
+.about-container {
+    max-width: 800px;
+    /* Limit content width */
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+    /* Add padding around content */
+    font-family: Arial, sans-serif;
+    /* Choose a suitable font */
+    line-height: 1.5;
+    /* Adjust line height for better readability */
+}
+
+.about-title {
+    font-size: 24px;
+    /* Set font size for the title */
+    margin-bottom: 10px;
+    /* Add space below the title */
+}
+
+.about-content {
+    font-size: 16px;
+    /* Set font size for the content */
+}
+
+.signature {
+    margin-top: 20px;
+    /* Add space above the signature */
+    font-style: italic;
+}
+
+.title-content {
+    text-align: center;
+}

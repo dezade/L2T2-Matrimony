@@ -1,0 +1,58 @@
+.profile-container{
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.small-button{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(149, 234, 241);
+    color: black;
+    border: 1px solid black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.small-button-unavailable{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(156, 157, 157);
+    color: black;
+    border: 1px solid black;
+}
+
+.small-button:hover {
+    color: red;
+    background-color: rgb(230, 252, 183);
+}
+
+.table-container {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  /* Style table header */
+  .table-container th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 12px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Style table rows */
+  .table-container tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Style even and odd rows differently for better readability */
+  .table-container tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style table data cells */
+  .table-container td {
+    padding: 8px;
+    text-align: left;
+  }
