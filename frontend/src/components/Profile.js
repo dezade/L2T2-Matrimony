@@ -1,16 +1,18 @@
 // src/components/Profile.js
 import React from 'react';
 import "./Profile.css";
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 function Profile() {
+  const navigate = useNavigate();
   const location = useLocation();
   const email = location.state.email;
   /* Now here will be a query
     SELECT * FROM USERS WHERE USERNAME = {email};
     After that all the info will be stored in the following variable
   */
-
+  const userid = '101';
   const name = 'Abol Tabol';
   const gender = 'female';
   const age = '12/12/2012';
@@ -18,6 +20,10 @@ function Profile() {
   const father = 'Abol Tabol\'s father';
   const mother = 'Abol Tabol\'s mother';
   const height = '150';
+
+  const findSpouseClick = () => {
+    navigate('/findspouse', {state: {userid}});
+  };
 
   return (
     <div className="profile-container">
@@ -42,7 +48,7 @@ function Profile() {
             <td><button className='small-button-unavailable'>Change</button></td>
           </tr>
           <tr>
-            <td>Age</td>
+            <td>Date of Birth</td>
             <td>{age}</td>
             <td><button className='small-button-unavailable'>Change</button></td>
           </tr>
@@ -76,7 +82,7 @@ function Profile() {
 
       <h3>You can see your info here and customize the visibility of your personal info</h3>
       <div>
-        <button>FIND SPOUSE</button>
+        <button onClick={findSpouseClick}>FIND SPOUSE</button>
       </div>
     </div>
   );

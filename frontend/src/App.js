@@ -8,6 +8,8 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import About from './components/About';
 import Profile from './components/Profile';
+import Findspouse from './components/Findspouse';
+import Spouse from './components/Spouse';
 
 function App() {
   return (
@@ -21,7 +23,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/about" element={<About />} />
-            <Route path="/profile" element={<Profile />} /> {/* Add this line */}
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/findspouse" element={<Findspouse />} />
+            <Route path="/spouse" element={<Spouse />} />
           </Routes>
         </div>
         <Footer />

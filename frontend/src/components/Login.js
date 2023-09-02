@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
@@ -9,6 +9,25 @@ function Login() {
   const [isInputValid, setIsInputValid] = useState(false);
 
   const navigate = useNavigate();
+  useEffect(() => {
+    // Define the URL you want to fetch data from
+    const apiUrl = 'http://localhost:8000/';
+
+    // Use the fetch API to make the GET request
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((resultData) => {
+        console.log(resultData);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+      });
+  }, []);
 
   const handleLogin = () => { // Dummy logic for purpose
     if (email === password) {
