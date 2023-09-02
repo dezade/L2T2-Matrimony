@@ -54,12 +54,13 @@ initializeOracle().then(() => {
 const express = require('express');
 const bodyParser = require('body-parser');
 const oracledb = require('oracledb');
+const cors = require('cors');
 
 const app = express();
-const port = 5000;
+const port = 8000;
 
 app.use(bodyParser.json());
-
+app.use(cors());
 // Configure Oracle database connection
 oracledb.initOracleClient({ libDir: 'D:\\Oracle\\instantclient_19_20' }); // Provide the correct path to the Oracle client libraries
 
@@ -68,8 +69,31 @@ const dbConfig = {
     password: 'matrimony',
     connectString: 'localhost/orclpdb'
 };
+app.get('/', async (req, res) => {
 
-app.post('/api/login', async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    const result = await connection.execute(
+      `SELECT * FROM users`
+    );
+    const arr = result.rows.map((item)=>{
+      return {
+        id:item[0],
+        pass:item[1],
+        name:item[2],
+      }
+    })
+    console.log(arr)
+    res.send(arr)
+    connection.close();
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ success: false, message: 'An error occurred.' });
+  }
+});
+
+
+app.get('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -80,7 +104,7 @@ app.post('/api/login', async (req, res) => {
     );
 
     const userCount = result.rows[0].USER_COUNT;
-
+      res.send(userCount);
     connection.close();
 
     if (userCount === 1) {
@@ -103,7 +127,8 @@ async function fetchData() {
 
     const result = await connection.execute(`SELECT * FROM users`);
 
-    console.log(result.rows);
+    //console.log(result.rows);
+    //res.send(result.rows);
   } catch (error) {
     console.error('Error fetching data:', error);
   } finally {

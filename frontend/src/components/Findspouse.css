@@ -1,0 +1,35 @@
+/* src/components/Findspouse.css */
+.findspouse-container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 200px;
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.match-button {
+  background-color: #ef1bb3; /* Background color for the buttons */
+  border: 1px solid #ccc; /* Border for the buttons */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Padding for the buttons */
+  margin: 10px; /* Margin to separate the buttons */
+  cursor: pointer;
+  font-size: 18px;
+  color: #000000;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.match-button:hover {
+  background-color: #2faec4; /* Background color on hover */
+  transform: scale(1.05); /* Scale the button slightly on hover */
+}
+
+
+
+
+
+
