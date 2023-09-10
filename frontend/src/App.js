@@ -1,25 +1,40 @@
 // App.js
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import About from './components/About';
-import Profile from './components/Profile'; // Import the Profile component
+import Profile from './components/Profile';
+import Update from './components/Update';
+import Spouse from './components/Spouse';
+import Findspouse from './components/Findspouse';
+import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
   return (
     <Router>
       <div>
-        <Header />
+        <Header onSidebarToggle={handleSidebarToggle} />
+        <Sidebar isOpen={sidebarOpen} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<Profile />} /> {/* Add this line */}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/update" element={<Update />} />
+          <Route path="/spouse" element={<Spouse />} />
+          <Route path="/findspouse" element={<Findspouse />} />
         </Routes>
+      <Footer />
       </div>
     </Router>
   );

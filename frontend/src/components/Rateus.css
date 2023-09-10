@@ -1,0 +1,50 @@
+.rateus-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .rate-button {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+  }
+  
+  .rate-button.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .email-container {
+    margin-top: 20px;
+  }
+  
+  .email-label {
+    font-weight: bold;
+  }
+  
+  .email-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  
+  .error-message {
+    color: #ff0000;
+    margin-top: 10px;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
