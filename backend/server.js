@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const oracledb = require("oracledb");
 const cors = require("cors");
-const { getAllUsers, getAllEmails, checkUserExistence, getProfile } = require("./queries");
+const { getAllUsers, getAllEmails, checkUserExistence, getProfile } = require("./profile_queries");
 
 const app = express();
 const port = 8000;
@@ -99,6 +99,7 @@ app.post("/api/getUserInfo", async (req, res) => {
 
     if (result.rows.length === 1) {
       const userInfo = {
+        UserID: result.rows[0][0],
         Name: result.rows[0][1],
         Email: result.rows[0][2],
         Contact: result.rows[0][3],

@@ -8,6 +8,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isInputValid, setIsInputValid] = useState(false);
   //Query for finding all info about someone
+  const [userid, setUserId] = useState('');
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [gender, setGender] = useState('');
@@ -27,6 +28,7 @@ function Login() {
   const [hobby4, setHobby4] = useState('');
   const [hobby5, setHobby5] = useState('');
   const userInfo = {
+    UserID: userid,
     Name: name,
     Email: email,
     Contact: contact,
