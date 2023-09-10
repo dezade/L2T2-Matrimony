@@ -1,6 +1,7 @@
 .rateus-container {
     text-align: center;
     margin-top: 50px;
+    margin-bottom: 310px;
   }
   
   .star-rating {
@@ -29,6 +30,7 @@
   
   .email-label {
     font-weight: bold;
+    font-size: 20px;
   }
   
   .email-input {
@@ -36,6 +38,8 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-left: 10px;
+    height: 20px;
+    width: 200px;
   }
   
   .error-message {
@@ -48,3 +52,13 @@
     cursor: not-allowed;
   }
   
+  .submit-button {
+    margin-top: 10px;
+    height: 40px;
+    background-color: #007bff;
+  }
+
+  .submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }

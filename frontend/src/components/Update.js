@@ -234,9 +234,14 @@ function Update() {
     };
 
     const handleUpdate = (attribute, data, setData) => {
-        //query for update
+        //query for update will be stored
         console.log(attribute + " " + data);
         setData('');
+        
+    };
+
+    const handleSubmit = () => {
+        //stored quesry will be executed
         navigate('/login');
     };
     return (
@@ -290,7 +295,7 @@ function Update() {
             <div className="input-container">
                 <label className="label">Gender:</label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
                 >
@@ -338,7 +343,7 @@ function Update() {
             <div className="input-container">
                 <label className="label">Education level: </label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={educationLevel}
                     onChange={(e) => {
                         const selectedLevel = e.target.value;
@@ -380,7 +385,7 @@ function Update() {
             <div className="input-container">
                 <label className="label">School/college: </label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={institution}
                     onChange={(e) => {
                         const selectedSchool = e.target.value;
@@ -409,7 +414,7 @@ function Update() {
             <div className="input-container">
                 <label className="label">Subject/department: </label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={subject}
                     onChange={(e) => {
                         setSubject(e.target.value);
@@ -430,7 +435,7 @@ function Update() {
             <div className="input-container">
                 <label className="label">Profession: </label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={profession}
                     onChange={(e) => setProfession(e.target.value)}
                 >
@@ -541,6 +546,7 @@ function Update() {
                 />
                 <button onClick={() => handleUpdate("HOBBY5", hobby5, setHobby5)} disabled={!hobby5}>Update</button>
             </div>
+            <button className="submit-button" onClick={handleSubmit}>Submit update/s</button>
         </div>
     )
 }

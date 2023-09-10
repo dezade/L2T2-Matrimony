@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-
+import './Spouse.css'
 function Spouse() {
   const location = useLocation();
   const matchData = location.state.index;

@@ -1,6 +1,7 @@
 // src/components/Profile.js
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import './Profile.css';
 
 function Profile() {
   const location = useLocation();
@@ -16,10 +17,13 @@ function Profile() {
     navigate('/findspouse', { state: { userid } });
   }
   return (
-    <div>
-      <h2>Welcome to Your Profile, {userInfo.Name}</h2>
-      <h3>You can see your info here and customize the visibility of your personal info</h3>
-      <div>
+    <div className="profile-container">
+      <div className="profile-header"><h2>Welcome to Your Profile, {userInfo.Name}</h2></div>
+      <img className="profile-image" src='avatar.jpg' alt="Your face"/>
+      <div className="profile-description">
+        <h3>You can see your info here and customize the visibility of your personal info</h3>
+      </div>
+      <div className="profile-table">
         <table border="1px">
           <th colSpan="2">Personal information</th>
           <tr>
@@ -78,7 +82,7 @@ function Profile() {
           </tr>
         </table>
       </div>
-      <div>
+      <div className="profile-buttons">
         <button onClick={handleUpdate}>Update Info</button>
         <button onClick={hadleFindSpouse}>FIND SPOUSE</button>
       </div>

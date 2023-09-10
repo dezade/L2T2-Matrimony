@@ -47,7 +47,7 @@ function Rateus() {
                 />
             </div>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <button onClick={handleSubmit} disabled={email.trim() === ''}>Submit</button>
+            <button className="submit-button" onClick={handleSubmit} disabled={email.trim() === '' || !star}>Submit</button>
         </div>
     )
 }

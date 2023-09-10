@@ -5,7 +5,7 @@ function About() {
   return (
     <div className='aboutus-container'>
       <h3 className='aboutus-title'>About Us</h3>
-      <p className='description'>We are making a matrimony website where people can find their life partner with ease.
+      <p>We are making a matrimony website where people can find their life partner with ease.
         It is our first full stack web developmemt project so please support us by signing up.
       </p>
       Thanks for your support.<br></br>

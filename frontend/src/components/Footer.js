@@ -5,7 +5,7 @@ import './Footer.css'; // Import the CSS file
 function Footer() {
   return (
     <footer className="footer-container">
-      <p>&copy; {new Date().getFullYear()} Biyekorbo.com. All rights reserved.</p>
+      <p color='black'>&copy; {new Date().getFullYear()} Biyekorbo.com. All rights reserved.</p>
     </footer>
   );
 }

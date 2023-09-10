@@ -9,7 +9,7 @@ function Findspouse() {
   const location = useLocation();
 
   const userid = location.state.userid;
-  const username = 'Abol Tabol'; // SELECT NAME FROM USERS WHERE USERID={userid}
+   // SELECT NAME FROM USERS WHERE USERID={userid}
   // Query for matches and store the data in an array
 
   const onMatchClick = (index) => {
@@ -73,17 +73,20 @@ function Findspouse() {
   
 
   return (
-    <div className="findspouse-container">
-      <h1>Welcome, {username}!</h1>
+    <div>
+      <h1>Welcome, {userid}!</h1>
+      <div className="findspouse-container">
       {matches.map((match, index) => (
         <button
           key={index}
           className='match-button'
           onClick={() => onMatchClick(match)}
         >
+          <img src={`image${index + 1}.jpg`} alt={`Match ${index + 1}`} />
           {`Match ${index + 1}`}
         </button>
       ))}
+      </div>
     </div>
   );
 }

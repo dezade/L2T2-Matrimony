@@ -1,7 +1,8 @@
 // src/components/Header.js
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css'; // Import the CSS file
+import './Header.css';
 import Sidebar from './Sidebar';
 
 function Header() {
@@ -17,7 +18,10 @@ function Header() {
 
   return (
     <header className="header-container">
-      <div className={`hamburger-icon ${sidebarOpen ? 'open' : ''}`} onClick={handleSidebarToggle}>
+      <div
+        className={`hamburger-icon ${sidebarOpen ? 'open' : ''}`}
+        onClick={handleSidebarToggle}
+      >
         <div className="bar"></div>
         <div className="bar"></div>
         <div className="bar"></div>
@@ -28,7 +32,7 @@ function Header() {
         </Link>
       </div>
       <nav>
-        <ul>
+        <ul className={`nav-links ${sidebarOpen ? 'active' : ''}`}>
           <li><a href="/">Home</a></li>
           <li><a href="/login">Login</a></li>
           <li><a href="/signup">Sign Up</a></li>

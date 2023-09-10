@@ -343,7 +343,7 @@ function SignUp() {
           <div className="input-container">
               <label className="label">Gender:</label>
               <select
-                  className="input-field"
+                  className="select-field"
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
               >
@@ -387,7 +387,7 @@ function SignUp() {
           <div className="input-container">
               <label className="label">Education level: </label>
               <select
-                  className="input-field"
+                  className="select-field"
                   value={educationLevel}
                   onChange={(e) => {
                       const selectedLevel = e.target.value;
@@ -428,7 +428,7 @@ function SignUp() {
           <div className="input-container">
               <label className="label">School/college: </label>
               <select
-                  className="input-field"
+                  className="select-field"
                   value={institution}
                   onChange={(e) => {
                       const selectedSchool = e.target.value;
@@ -456,7 +456,7 @@ function SignUp() {
           <div className="input-container">
               <label className="label">Subject/department: </label>
               <select
-                  className="input-field"
+                  className="select-field"
                   value={subject}
                   onChange={(e) => {
                       setSubject(e.target.value);
@@ -476,7 +476,7 @@ function SignUp() {
           <div className="input-container">
               <label className="label">Profession: </label>
               <select
-                  className="input-field"
+                  className="select-field"
                   value={profession}
                   onChange={(e) => setProfession(e.target.value)}
               >
@@ -581,7 +581,7 @@ function SignUp() {
               />
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <button onClick={handleSignup}>Sign Up</button>
+          <button  className="signup-button" onClick={handleSignup}>Sign Up</button>
       </div>
   )
 }
