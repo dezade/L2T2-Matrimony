@@ -3,12 +3,52 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [isInputValid, setIsInputValid] = useState(false);
   //Query for finding all info about someone
-
+  const [userid, setUserId] = useState('');
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [gender, setGender] = useState('');
+  const [date, setDate] = useState('');
+  const [fathername, setFatherName] = useState('');
+  const [mothername, setMotherName] = useState('');
+  const [height, setHeight] = useState('');
+  const [location, setLocation] = useState('');
+  const [profession, setProfession] = useState('');
+  const [companyLocation, setCompanyLocation] = useState('');
+  const [educationLevel, setEducationLevel] = useState('');
+  const [subject, setSubject] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [hobby1, setHobby1] = useState('');
+  const [hobby2, setHobby2] = useState('');
+  const [hobby3, setHobby3] = useState('');
+  const [hobby4, setHobby4] = useState('');
+  const [hobby5, setHobby5] = useState('');
+  const userInfo = {
+    UserID: userid,
+    Name: name,
+    Email: email,
+    Contact: contact,
+    Gender: gender,
+    DateOfBirth: date,
+    Father: fathername,
+    Mother: mothername,
+    Height: height,
+    Address: location,
+    EducationLevel: educationLevel,
+    Institution: institution,
+    Subject: subject,
+    Profession: profession,
+    WorkplaceLocation: companyLocation,
+    H1: hobby1,
+    H2: hobby2,
+    H3: hobby3,
+    H4: hobby4,
+    H5: hobby5
+  };
   const navigate = useNavigate();
   useEffect(() => {
     const apiUrl = "http://localhost:8000/";
@@ -104,6 +144,7 @@ function Login() {
             })
             .then((data) => {
               userInfo = data;
+              console.log(userInfo);
             })
             .catch((error) => {
               console.error("Error fetching data:", error);

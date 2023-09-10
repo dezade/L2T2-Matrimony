@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const oracledb = require("oracledb");
 const cors = require("cors");
+const { getAllUsers, getAllEmails, checkUserExistence, getProfile } = require("./profile_queries");
 
 const app = express();
 const port = 8000;
@@ -20,7 +21,7 @@ const dbConfig = {
 app.get("/", async (req, res) => {
   try {
     const connection = await oracledb.getConnection(dbConfig);
-    const result = await connection.execute(`SELECT * FROM users`);
+    const result = await connection.execute(getAllUsers());
     const arr = result.rows.map((item) => {
       return {
         id: item[0],
@@ -43,18 +44,18 @@ app.get("/", async (req, res) => {
 
 app.get("/api/getRegisteredEmails", async (req, res) => {
   try {
-    console.log("hello hello");
-
     const connection = await oracledb.getConnection(dbConfig);
-    const result = await connection.execute(`SELECT EMAIL_ID FROM USERS`);
+    const result = await connection.execute(getAllEmails());
 
     const registeredEmails = result.rows.map((row) => row[0]).flat();
     console.log(registeredEmails);
+    /*
     if (registeredEmails.includes("cooper1947@gmail.com")) {
       console.log("found it");
     } else {
       console.log("didn't find");
     }
+    */
     res.send(registeredEmails);
 
     connection.close();
@@ -69,10 +70,8 @@ app.post("/api/checkLogin", async (req, res) => {
     
   try {
     const connection = await oracledb.getConnection(dbConfig);
-    const result = await connection.execute(
-      `SELECT COUNT(*) AS user_count FROM USERS WHERE EMAIL_ID = :email AND PASSWORD = :password`,
-      { email, password }
-    );
+    console.log(checkUserExistence(email, password));
+    const result = await connection.execute(checkUserExistence(email, password));
 
     const userCount = result.rows.map((row) => row[0]).flat();
     console.log(userCount[0]);
@@ -96,33 +95,30 @@ app.post("/api/getUserInfo", async (req, res) => {
 
   try {
     const connection = await oracledb.getConnection(dbConfig);
-    const result = await connection.execute(
-      `SELECT * FROM users WHERE email_id = :email`,
-      { email }
-    );
+    const result = await connection.execute(getProfile(email));
 
     if (result.rows.length === 1) {
       const userInfo = {
         UserID: result.rows[0][0],
-        Name: result.rows[0][2],
-        Gender: result.rows[0][3],
-        DateOfBirth: result.rows[0][4],
-        Email: result.rows[0][5],
-        Contact: result.rows[0][6],
-        Father: result.rows[0][7],
-        Mother: result.rows[0][8],
-        Height: result.rows[0][9],
-        Address: "location",
-        EducationLevel: "educationLevel",
-        Subject: "subject",
-        Institution: "institution",
-        Profession: "profession",
-        WorkplaceLocation: "companyLocation",
-        Hobby1: "hobby1",
-        Hobby2: "hobby2",
-        Hobby3: "hobby3",
-        Hobby4: "hobby4",
-        Hobby5: "hobby5",
+        Name: result.rows[0][1],
+        Email: result.rows[0][2],
+        Contact: result.rows[0][3],
+        Gender: result.rows[0][4],
+        DateOfBirth: result.rows[0][5],
+        Father: result.rows[0][6],
+        Mother: result.rows[0][7],
+        Height: result.rows[0][8],
+        Address: result.rows[0][9],
+        EducationLevel: result.rows[0][10],
+        Institution: result.rows[0][11],
+        Subject: result.rows[0][12],
+        Profession: result.rows[0][13],
+        WorkplaceLocation: result.rows[0][14],
+        H1: result.rows[0][15],
+        H2: result.rows[0][16],
+        H3: result.rows[0][17],
+        H4: result.rows[0][18],
+        H5: result.rows[0][19]
       };
 
       res.json(userInfo);
