@@ -2,7 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const oracledb = require("oracledb");
 const cors = require("cors");
-const { getAllUsers, getAllEmails, checkUserExistence, getProfile } = require("./profile_queries");
+const {
+  getAllUsers,
+  getAllEmails,
+  checkUserExistence,
+  getProfile,
+  getEmailFromUserID,
+} = require("./profile_queries");
 
 const app = express();
 const port = 8000;
@@ -40,8 +46,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-/**** stuff I am adding */
-
 app.get("/api/getRegisteredEmails", async (req, res) => {
   try {
     const connection = await oracledb.getConnection(dbConfig);
@@ -49,13 +53,6 @@ app.get("/api/getRegisteredEmails", async (req, res) => {
 
     const registeredEmails = result.rows.map((row) => row[0]).flat();
     console.log(registeredEmails);
-    /*
-    if (registeredEmails.includes("cooper1947@gmail.com")) {
-      console.log("found it");
-    } else {
-      console.log("didn't find");
-    }
-    */
     res.send(registeredEmails);
 
     connection.close();
@@ -67,11 +64,13 @@ app.get("/api/getRegisteredEmails", async (req, res) => {
 
 app.post("/api/checkLogin", async (req, res) => {
   const { email, password } = req.body;
-    
+
   try {
     const connection = await oracledb.getConnection(dbConfig);
     console.log(checkUserExistence(email, password));
-    const result = await connection.execute(checkUserExistence(email, password));
+    const result = await connection.execute(
+      checkUserExistence(email, password)
+    );
 
     const userCount = result.rows.map((row) => row[0]).flat();
     console.log(userCount[0]);
@@ -118,7 +117,7 @@ app.post("/api/getUserInfo", async (req, res) => {
         H2: result.rows[0][16],
         H3: result.rows[0][17],
         H4: result.rows[0][18],
-        H5: result.rows[0][19]
+        H5: result.rows[0][19],
       };
 
       res.json(userInfo);
@@ -133,31 +132,24 @@ app.post("/api/getUserInfo", async (req, res) => {
   }
 });
 
-/*** stuff added up to this */
-
-app.get("/api/login", async (req, res) => {
-  const { email, password } = req.body;
+app.post("/api/emailFromID", async (req, res) => {
+  const { id } = req.body;
 
   try {
     const connection = await oracledb.getConnection(dbConfig);
-    const result = await connection.execute(
-      `SELECT COUNT(*) AS user_count FROM users WHERE email_id = :email AND password = :password`,
-      { email, password }
-    );
+    const result = await connection.execute(getEmailFromUserID(id));
 
-    const userCount = result.rows[0].USER_COUNT;
-    res.send(userCount);
-    connection.close();
-
-    if (userCount === 1) {
-      res.json({ success: true });
+    if (result.rows.length === 1) {
+      returnID = result.rows[0][0];
+      //res.json(returnID);
+      res.send(returnID);
     } else {
-      res
-        .status(401)
-        .json({ success: false, message: "Incorrect email or password." });
+      res.status(404).json({ success: false, message: "User not found." });
     }
+
+    connection.close();
   } catch (error) {
-    console.error("Error: ", error);
+    console.error("Error:", error);
     res.status(500).json({ success: false, message: "An error occurred." });
   }
 });

@@ -41,9 +41,18 @@ function getProfile(email) {
     `;
 }
 
+function getEmailFromUserID(id) {
+    return `
+        SELECT EMAIL_ID
+        FROM USERS
+        WHERE USERID = ${id}
+    `;
+}
+
 module.exports = {
     getAllUsers,
     getAllEmails,
     checkUserExistence,
     getProfile,
+    getEmailFromUserID,
 };
