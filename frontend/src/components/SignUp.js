@@ -21,6 +21,7 @@ function SignUp() {
     const [companyDistrict, setCompanyDistrict] = useState('');
     const [companyThana, setCompanyThana] = useState('');
     const [companyLocation, setCompanyLocation] = useState('');
+    const [companyName, setCompanyName] = useState('');
     const [educationLevel, setEducationLevel] = useState('');
     const [subject, setSubject] = useState('');
     const [institution, setInstitution] = useState('');
@@ -653,6 +654,16 @@ function SignUp() {
                     <option value="Others">Others</option>
                     <option value="Not anything particularly">Not anything particularly</option>
                 </select>
+            </div>
+
+            <div className="input-container">
+                <label className="label">Company name: </label>
+                <input
+                    className="input-field"
+                    type="text"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                />
             </div>
 
             <label className="label">Workplace address</label>
