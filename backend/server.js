@@ -196,35 +196,6 @@ app.post("/api/updateUser", async (req, res) => {
   }
 });
 
-app.post("/api/successfulLogin", async (req, res) => {
-  const { id } = req.body;
-  try {
-    const connection = await oracledb.getConnection(dbConfig);
-    await connection.execute(failedLoginZero(id));
-    await connection.execute(`COMMIT`);
-    connection.close();
-    console.log('this is it');
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ success: false, message: "An error occurred." });
-  }
-});
-
-
-app.post("/api/wrongPassword", async (req, res) => {
-  const { id } = req.body;
-  try {
-    const connection = await oracledb.getConnection(dbConfig);
-    await connection.execute(failedLoginIncrement(id));
-    await connection.execute(`COMMIT`);
-    connection.close();
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ success: false, message: "An error occurred." });
-  }
-});
-
-
 async function fetchData() {
   let connection;
 

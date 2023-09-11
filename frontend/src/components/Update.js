@@ -499,9 +499,8 @@ function Update() {
           onChange={(e) => setGender(e.target.value)}
         >
           <option value="">Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
         </select>
         <button
           onClick={() => handleUpdate("GENDER", gender, setGender)}
@@ -713,7 +712,7 @@ function Update() {
         </select>
         <button
           onClick={() =>
-            handleUpdate("SUBJECT_DEPARTMENT", subject, setSubject)
+            handleUpdate("FIELD_OF_EDUCATION", subject, setSubject)
           }
           disabled={!subject}
         >

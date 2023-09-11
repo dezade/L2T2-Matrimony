@@ -13,6 +13,7 @@ import Findspouse from './components/Findspouse';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Rateus from './components/Rateus';
+import Updatepreference from './components/Updatepreference';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,6 +36,7 @@ function App() {
           <Route path="/spouse" element={<Spouse />} />
           <Route path="/findspouse" element={<Findspouse />} />
           <Route path="/rateus" element={<Rateus />} />
+          <Route path="/updatepreference" element={<Updatepreference />} />
         </Routes>
       <Footer />
       </div>

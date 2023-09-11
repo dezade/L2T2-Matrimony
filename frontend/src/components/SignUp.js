@@ -439,9 +439,8 @@ function SignUp() {
                     onChange={(e) => setGender(e.target.value)}
                 >
                     <option value="">Select</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
                 </select>
             </div>
 
