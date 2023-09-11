@@ -57,6 +57,22 @@ function getUserIDFromEmail(email) {
     `;
 }
 
+function failedLoginZero(id) {
+    return `
+        UPDATE FAILED_LOGIN_COUNTS
+        SET FAIL_COUNT = 0
+        WHERE USERID = ${id}
+    `;
+}
+
+function failedLoginIncrement(id) {
+    return `
+        UPDATE FAILED_LOGIN_COUNTS
+        SET FAIL_COUNT = FAIL_COUNT + 1
+        WHERE USERID = ${id}
+    `;
+}
+
 module.exports = {
     getAllUsers,
     getAllEmails,
@@ -64,4 +80,6 @@ module.exports = {
     getProfile,
     getEmailFromUserID,
     getUserIDFromEmail,
+    failedLoginZero,
+    failedLoginIncrement,
 };

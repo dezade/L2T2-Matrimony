@@ -85,5 +85,13 @@ BEGIN
 				H4_IN,
 				H5_IN
 		);
+		
+		INSERT INTO FAILED_LOGIN_COUNTS VALUES
+		(
+				ID,
+				0
+		);
+		
+		COMMIT;
 END;
 /
