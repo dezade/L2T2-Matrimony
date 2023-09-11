@@ -188,6 +188,7 @@ function Login() {
       <div className="input-container1">
         <label>Email:</label>
         <input
+        className="login-input"
           type="text"
           name="email"
           value={email}
@@ -197,6 +198,7 @@ function Login() {
       <div className="input-container1">
         <label>Password:</label>
         <input
+        className="login-input"
           type="password"
           name="password"
           value={password}

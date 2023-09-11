@@ -4,6 +4,7 @@ import "./Update.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Update() {
+    const [notification, setNotification] = useState(null);
     const address = useLocation();
     const navigate = useNavigate();
     const email = address.state.email;
@@ -237,12 +238,20 @@ function Update() {
         //query for update will be stored
         console.log(attribute + " " + data);
         setData('');
-        
+
     };
 
     const handleSubmit = () => {
+        const message = "Update successful!\nLogin again to see your updates\nYou will be redirected to the login page\nshortly after 3 seconds";
+        setNotification(message);
+
+        // Hide the notification after 3 seconds
+        setTimeout(() => {
+            setNotification(null);
+            navigate('/login');
+        }, 3000);
         //stored quesry will be executed
-        navigate('/login');
+        
     };
     return (
         <div className="updateinfo-container">
@@ -547,6 +556,11 @@ function Update() {
                 <button onClick={() => handleUpdate("HOBBY5", hobby5, setHobby5)} disabled={!hobby5}>Update</button>
             </div>
             <button className="submit-button" onClick={handleSubmit}>Submit update/s</button>
+            {notification && (
+                <div className="notification">
+                    <p>{notification}</p>
+                </div>
+            )}
         </div>
     )
 }

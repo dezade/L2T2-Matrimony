@@ -8,8 +8,9 @@
   border: 1px solid #000;
   overflow: hidden;
   position: relative;
-  margin: 100px auto 0;
-  margin-bottom: 70px;
+  margin: 0 auto;
+  margin-top: 69px;
+  margin-bottom: 56px;
 }
 
 .slideshow-image {

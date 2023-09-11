@@ -84,4 +84,31 @@
   }
   
   /* Additional styling for a beautiful design */
-  
+  /* Update.css */
+
+/* Your existing CSS styles... */
+
+/* Add the following styles for the notification popup */
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  width: 300px;
+  transform: translate(-50%, -50%);
+  background-color: beige;
+  color: coral;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-size: 20px;/* Ensure it's above other elements */
+  transition: opacity 0.3s; /* Add a fade-in effect */
+}
+
+/* Style the notification when hovered (optional) */
+.notification:hover {
+  background-color: white; /* Darker green on hover */
+}
+
+/* Add more styles as needed to customize the appearance of the notification */

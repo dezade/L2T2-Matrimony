@@ -17,14 +17,14 @@ function Spouse() {
       <h1>Hello user {userid}!</h1>
       <h3>Spouse Information</h3>
       <ul>
-        <li>Name: {matchData.Name}</li>
-        <li>Gender: {matchData.Gender}</li>
-        <li>Birthdate: {matchData.DateOfBirth}</li>
-        <li>Email: {matchData.Email}</li>
-        <li>Contact: {matchData.Contact}</li>
-        <li>Father: {matchData.Father}</li>
-        <li>Mother: {matchData.Mother}</li>
-        <li>Height: {matchData.Height}</li>
+        <li>Name: {matchData.name}</li>
+        <li>Gender: {matchData.gender}</li>
+        <li>Birthdate: {matchData.birthdate}</li>
+        <li>Email: {matchData.email}</li>
+        <li>Contact: {matchData.contact}</li>
+        <li>Father: {matchData.father}</li>
+        <li>Mother: {matchData.mother}</li>
+        <li>Height: {matchData.height}</li>
         {/* Add more details as needed */}
       </ul>
     </div>
