@@ -22,6 +22,7 @@ function Update() {
   //const [companyLocation, setCompanyLocation] = useState("");
   const [companyDistrict, setCompanyDistrict] = useState("");
   const [companyThana, setCompanyThana] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [educationLevel, setEducationLevel] = useState("");
   const [subject, setSubject] = useState("");
   const [institution, setInstitution] = useState("");
@@ -1333,6 +1334,22 @@ function Update() {
         <button
           onClick={() => handleUpdate("JOB_TITLE", profession, setProfession)}
           disabled={!profession}
+        >
+          Update
+        </button>
+      </div>
+
+      <div className="input-container">
+        <label className="label">Company name: </label>
+        <input
+          className="input-field"
+          type="text"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+        />
+        <button
+          onClick={() => handleUpdate("COMPANY_NAME", companyName, setCompanyName)}
+          disabled={!hobby4}
         >
           Update
         </button>
