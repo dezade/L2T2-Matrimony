@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAsyncValue, useNavigate } from 'react-router-dom';
 import './SignUp.css'; // Import the CSS file
 
 function SignUp() {
@@ -16,7 +16,10 @@ function SignUp() {
     const [height, setHeight] = useState('');
     const [district, setDistrict] = useState('');
     const [thana, setThana] = useState('');
+    const [location, setLocation] = useState('');
     const [profession, setProfession] = useState('');
+    const [companyDistrict, setCompanyDistrict] = useState('');
+    const [companyThana, setCompanyThana] = useState('');
     const [companyLocation, setCompanyLocation] = useState('');
     const [educationLevel, setEducationLevel] = useState('');
     const [subject, setSubject] = useState('');
@@ -28,6 +31,10 @@ function SignUp() {
     const [hobby5, setHobby5] = useState('');
     const [isSchoolDisabled, setIsSchoolDisabled] = useState(true);
     const [isSubjectDisabled, setIsSubjectDisabled] = useState(true);
+    const [isThanaDisabled, setIsThanaDisabled] = useState(true);
+    const [isCompanyThanaDisabled, setIsCompanyThanaDisabled] = useState(true);
+    const [availableThana, setAvailableThana] = useState([]);
+    const [availableCompanyThana, setAvailableCompanyThana] = useState([]);
     const [availableSchools, setAvailableSchools] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const registeredEmail = ['existinguser'];
@@ -41,7 +48,7 @@ function SignUp() {
         Father: fathername,
         Mother: mothername,
         Height: height,
-        District: district,
+        Address: location,
         Thana: thana,
         EducationLevel: educationLevel,
         Institution: institution,
@@ -68,19 +75,27 @@ function SignUp() {
             }
             else {
                 registeredEmail.push(email);
-                const message = "Welcome to Biyekorbo.com! You will be redirected to your profile page in 3 seconds";
+                const message = "Welcome to Biyekorbo.com! You will be redirected to your profile page in 2 seconds";
                 setNotification(message);
                 setTimeout(() => {
                     setNotification(null);
                     navigate('/profile', { state: { userInfo } });
-                }, 3000);
+                }, 2000);
 
             }
         } else {
             setErrorMessage('Please provide necessary information');
         }
     };
-
+    const availableDistrict = ['Cumilla', 'Feni', 'Brahmanbaria', 'Rangamati', 'Noakhali', 'Chandpur', 'Lakshmipur',
+        'Chattogram', 'Coxsbazar', 'Khagrachhari', 'Bandarban', 'Sirajganj', 'Pabna', 'Bogura', 'Rajshahi',
+        'Natore', 'Joypurhat', 'Chapainawabganj', 'Naogaon', 'Jashore', 'Satkhira', 'Meherpur', 'Narail',
+        'Chuadanga', 'Kushtia', 'Magura', 'Khulna', 'Bagerhat', 'Jhenaidah', 'Jhalakathi', 'Patuakhali',
+        'Pirojpur', 'Barishal', 'Bhola', 'Barguna', 'Sylhet', 'Moulvibazar', 'Habiganj', 'Sunamganj',
+        'Narsingdi', 'Gazipur', 'Shariatpur', 'Narayanganj', 'Tangail', 'Kishoreganj', 'Manikganj', 'Dhaka',
+        'Munshiganj', 'Rajbari', 'Madaripur', 'Gopalganj', 'Faridpur', 'Panchagarh', 'Dinajpur', 'Lalmonirhat',
+        'Nilphamari', 'Gaibandha', 'Thakurgaon', 'Rangpur', 'Kurigram', 'Sherpur', 'Mymensingh', 'Jamalpur',
+        'Netrokona'];
     const allowedThanaByDistrict = {
         Cumilla: ['Debidwar', 'Barura', 'Brahmanpara', 'Chandina', 'Chauddagram', 'Daudkandi', 'Homna', 'Laksam', 'Muradnagar', 'Nangalkot', 'Cumillasadar', 'Meghna', 'Monohargonj', 'Sadarsouth', 'Titas', 'Burichang', 'Lalmai'],
         Feni: ['Chhagalnaiya', 'Sadar', 'Sonagazi', 'Fulgazi', 'Parshuram', 'Daganbhuiyan'],
@@ -439,23 +454,60 @@ function SignUp() {
                     onChange={(e) => setDate(e.target.value)}
                 />
             </div>
+
             <label className="label">Address</label>
             <div className="input-container">
                 <label className="label">District: </label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                ></select>
+                    onChange={(e) => {
+                        const selectedDistrict = e.target.value;
+                        setDistrict(selectedDistrict);
+                        if (e.target.value === '') {
+                            setIsThanaDisabled(true);
+                            setThana(e.target.value);
+                        }
+                        else {
+                            setIsThanaDisabled(false);
+                        }
+                        if (selectedDistrict in allowedThanaByDistrict) {
+                            setAvailableThana(allowedThanaByDistrict[selectedDistrict]);
+                        }
+                        else {
+                            setAvailableThana([]);
+                        }
+                    }}
+                >
+                    <option value=''>Choose option</option>
+                    {availableDistrict.map((district, index) => (
+                        <option key={index} value={district}>
+                            {district}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="input-container">
                 <label className="label">Thana: </label>
                 <select
-                    className="input-field"
+                    className="select-field"
                     value={thana}
-                    onChange={(e) => setThana(e.target.value)}
-                ></select>
+                    onChange={(e) => {
+                        setThana(e.target.value);
+                        const temp = thana + ", " + district;
+                        setLocation(temp);
+                    }}
+                    disabled={isThanaDisabled}
+                >
+                    <option value=''>Choose option</option> {
+                        availableThana.map((thana, index) => (
+                            <option key={index} value={thana}>
+                                {thana}
+                            </option>
+                        ))
+                    }
+                </select>
             </div>
 
             <div className="input-container">
@@ -604,14 +656,59 @@ function SignUp() {
                 </select>
             </div>
 
+            <label className="label">Workplace address</label>
             <div className="input-container">
-                <label className="label">Location of workplace: </label>
-                <input
-                    className="input-field"
-                    type="text"
-                    value={companyLocation}
-                    onChange={(e) => setCompanyLocation(e.target.value)}
-                />
+                <label className="label">District: </label>
+                <select
+                    className="select-field"
+                    value={companyDistrict}
+                    onChange={(e) => {
+                        const selectedDistrict = e.target.value;
+                        setCompanyDistrict(selectedDistrict);
+                        if (e.target.value === '') {
+                            setIsCompanyThanaDisabled(true);
+                            setCompanyThana(e.target.value);
+                        }
+                        else {
+                            setIsCompanyThanaDisabled(false);
+                        }
+                        if (selectedDistrict in allowedThanaByDistrict) {
+                            setAvailableCompanyThana(allowedThanaByDistrict[selectedDistrict]);
+                        }
+                        else {
+                            setAvailableCompanyThana([]);
+                        }
+                    }}
+                >
+                    <option value=''>Choose option</option>
+                    {availableDistrict.map((companyDistrict, index) => (
+                        <option key={index} value={companyDistrict}>
+                            {companyDistrict}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="input-container">
+                <label className="label">Thana: </label>
+                <select
+                    className="select-field"
+                    value={companyThana}
+                    onChange={(e) => {
+                        setCompanyThana(e.target.value);
+                        const temp = companyThana + ", " + companyDistrict;
+                        setCompanyLocation(temp);
+                    }}
+                    disabled={isCompanyThanaDisabled}
+                >
+                    <option value=''>Choose option</option> {
+                        availableCompanyThana.map((companyThana, index) => (
+                            <option key={index} value={companyThana}>
+                                {companyThana}
+                            </option>
+                        ))
+                    }
+                </select>
             </div>
 
 

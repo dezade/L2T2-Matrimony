@@ -31,8 +31,20 @@ function Profile() {
             <td>{userid}</td>
           </tr>
           <tr>
+            <td>Email: </td>
+            <td>{userInfo.Email}</td>
+          </tr>
+          <tr>
             <td>Contact no: </td>
             <td>{userInfo.Contact}</td>
+          </tr>
+          <tr>
+            <td>Address: </td>
+            <td>{userInfo.Address}</td>
+          </tr>
+          <tr>
+            <td>Date of birth: </td>
+            <td>{userInfo.DateOfBirth}</td>
           </tr>
           <tr>
             <td>Father: </td>
@@ -41,10 +53,6 @@ function Profile() {
           <tr>
             <td>Mother: </td>
             <td>{userInfo.Mother}</td>
-          </tr>
-          <tr>
-            <td>Email: </td>
-            <td>{userInfo.Email}</td>
           </tr>
           <tr>
             <td>Height: </td>
