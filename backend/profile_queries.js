@@ -23,7 +23,7 @@ function checkUserExistence(email, password) {
 
 function getProfile(email) {
     return `
-        SELECT U.USERID, U.NAME, U.EMAIL_ID, U.CONTACT_NO, U.GENDER, U.DATE_OF_BIRTH, U.FATHER, U.MOTHER, U.HEIGHT_CM, (L.THANA || ', ' || L.DISTRICT) ADDRESS, E.EDUCATION_LEVEL, E.INSTITUTION, E.FIELD_OF_EDUCATION, O.JOB_TITLE, (OL.THANA || ', ' || OL.DISTRICT) JOB_ADDRESS, H.HOBBY_1, H.HOBBY_2, H.HOBBY_3, H.HOBBY_4, H.HOBBY_5
+        SELECT U.USERID, U.NAME, U.EMAIL_ID, U.CONTACT_NO, U.GENDER, TO_CHAR(U.DATE_OF_BIRTH, 'DD MONTH YYYY'), U.FATHER, U.MOTHER, U.HEIGHT_CM, (L.THANA || ', ' || L.DISTRICT) ADDRESS, E.EDUCATION_LEVEL, E.INSTITUTION, E.FIELD_OF_EDUCATION, O.JOB_TITLE, (OL.THANA || ', ' || OL.DISTRICT) JOB_ADDRESS, H.HOBBY_1, H.HOBBY_2, H.HOBBY_3, H.HOBBY_4, H.HOBBY_5
         FROM (
             SELECT *
             FROM USERS
@@ -42,6 +42,7 @@ function getProfile(email) {
 }
 
 function getEmailFromUserID(id) {
+    console.log(id);
     return `
         SELECT EMAIL_ID
         FROM USERS

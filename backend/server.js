@@ -133,16 +133,20 @@ app.post("/api/getUserInfo", async (req, res) => {
 });
 
 app.post("/api/emailFromID", async (req, res) => {
-  const { id } = req.body;
-
+  const { num } = req.body;
   try {
     const connection = await oracledb.getConnection(dbConfig);
-    const result = await connection.execute(getEmailFromUserID(id));
+    const result = await connection.execute(getEmailFromUserID(num));
 
     if (result.rows.length === 1) {
-      returnID = result.rows[0][0];
-      //res.json(returnID);
-      res.send(returnID);
+      //console.log(result.rows[0][0]);
+      //const returnID = result.rows[0][0];
+      const returnID = {
+        email: result.rows[0][0],
+      };
+      //res.send(returnID);
+      res.json(returnID);
+      console.log(returnID);
     } else {
       res.status(404).json({ success: false, message: "User not found." });
     }
