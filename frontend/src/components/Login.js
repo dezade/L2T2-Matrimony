@@ -3,30 +3,30 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isInputValid, setIsInputValid] = useState(false);
   //Query for finding all info about someone
-  const [userid, setUserId] = useState('');
-  const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
-  const [gender, setGender] = useState('');
-  const [date, setDate] = useState('');
-  const [fathername, setFatherName] = useState('');
-  const [mothername, setMotherName] = useState('');
-  const [height, setHeight] = useState('');
-  const [location, setLocation] = useState('');
-  const [profession, setProfession] = useState('');
-  const [companyLocation, setCompanyLocation] = useState('');
-  const [educationLevel, setEducationLevel] = useState('');
-  const [subject, setSubject] = useState('');
-  const [institution, setInstitution] = useState('');
-  const [hobby1, setHobby1] = useState('');
-  const [hobby2, setHobby2] = useState('');
-  const [hobby3, setHobby3] = useState('');
-  const [hobby4, setHobby4] = useState('');
-  const [hobby5, setHobby5] = useState('');
+  const [userid, setUserId] = useState("");
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
+  const [gender, setGender] = useState("");
+  const [date, setDate] = useState("");
+  const [fathername, setFatherName] = useState("");
+  const [mothername, setMotherName] = useState("");
+  const [height, setHeight] = useState("");
+  const [location, setLocation] = useState("");
+  const [profession, setProfession] = useState("");
+  const [companyLocation, setCompanyLocation] = useState("");
+  const [educationLevel, setEducationLevel] = useState("");
+  const [subject, setSubject] = useState("");
+  const [institution, setInstitution] = useState("");
+  const [hobby1, setHobby1] = useState("");
+  const [hobby2, setHobby2] = useState("");
+  const [hobby3, setHobby3] = useState("");
+  const [hobby4, setHobby4] = useState("");
+  const [hobby5, setHobby5] = useState("");
   const userInfo = {
     UserID: userid,
     Name: name,
@@ -47,7 +47,7 @@ function Login() {
     H2: hobby2,
     H3: hobby3,
     H4: hobby4,
-    H5: hobby5
+    H5: hobby5,
   };
   const navigate = useNavigate();
   useEffect(() => {
@@ -80,9 +80,13 @@ function Login() {
       console.log(email);
       console.log(password);
       */
-      const getRegisteredEmailsAPI = "http://localhost:8000/api/getRegisteredEmails";
+      const getRegisteredEmailsAPI =
+        "http://localhost:8000/api/getRegisteredEmails";
       const checkLoginAPI = "http://localhost:8000/api/checkLogin";
       const getUserInfoAPI = "http://localhost:8000/api/getUserInfo";
+      const successfulLoginAPI = "http://localhost:8000/api/successfulLogin";
+      const wrongPasswordAPI = "http://localhost:8000/api/wrongPassword";
+      const IDFromEmailAPI = "http://localhost:8000/api/IDFromEmail";
       let registeredEmails;
       await fetch(getRegisteredEmailsAPI)
         .then((response) => {
@@ -99,7 +103,7 @@ function Login() {
           console.error("Error fetching data:", error);
         });
 
-        /*
+      /*
       console.log("After");
       console.log(email);
       console.log(password);
@@ -130,8 +134,30 @@ function Login() {
             console.error("Error fetching data:", error);
           });
 
+        let id;
+        await fetch(IDFromEmailAPI, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not OK");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            id = data.userid;
+          })
+          .catch((error) => {
+            console.error("Error fetching User ID:", error);
+          });
+
         if (loginData.success) {
           let userInfo;
+          //console.log(loginData);
           await fetch(getUserInfoAPI, {
             method: "POST",
             headers: {
@@ -152,8 +178,44 @@ function Login() {
             .catch((error) => {
               console.error("Error fetching data:", error);
             });
+            //console.log(userInfo);
+            /*
+            await fetch(successfulLoginAPI, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id }),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not OK");
+                }
+                return response.json();
+              })
+              .catch((error) => {
+                console.error("Error fetching User ID:", error);
+              });
+              console.log('what is this');
+              */
           navigate("/profile", { state: { userInfo } });
         } else {
+          await fetch(wrongPasswordAPI, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not OK");
+              }
+              return response.json();
+            })
+            .catch((error) => {
+              console.error("Error fetching User ID:", error);
+            });
           setErrorMessage("Incorrect username or password.");
         }
       } else {
@@ -191,7 +253,7 @@ function Login() {
       <div className="input-container1">
         <label>Email:</label>
         <input
-        className="login-input"
+          className="login-input"
           type="text"
           name="email"
           value={email}
@@ -201,7 +263,7 @@ function Login() {
       <div className="input-container1">
         <label>Password:</label>
         <input
-        className="login-input"
+          className="login-input"
           type="password"
           name="password"
           value={password}
