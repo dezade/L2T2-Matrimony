@@ -180,28 +180,13 @@ app.post("/api/IDFromEmail", async (req, res) => {
 
 
 app.post("/api/updateUser", async (req, res) => {
-  const { queryStorage } = req.body;
+  const { query } = req.body;
   try {
     const connection = await oracledb.getConnection(dbConfig);
     //const result = 
-    let inputString = queryStorage;
-    console.log(inputString);
-    await connection.execute(inputString);
-    //await connection.execute(`SELECT * FROM users`);
-/*
-    if (result.rows.length === 1) {
-      //console.log(result.rows[0][0]);
-      //const returnID = result.rows[0][0];
-      const returnID = {
-        email: result.rows[0][0],
-      };
-      //res.send(returnID);
-      res.json(returnID);
-      console.log(returnID);
-    } else {
-      res.status(404).json({ success: false, message: "User not found." });
-    }
-*/
+    console.log(query);
+    await connection.execute(query);
+    await connection.execute(`COMMIT`);
     connection.close();
   } catch (error) {
     console.error("Error:", error);

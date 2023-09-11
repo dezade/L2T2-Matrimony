@@ -75,9 +75,11 @@ function Login() {
   const handleLogin = async () => {
     try {
       // Step 1: Fetch registered email addresses from the server
+      /*
       console.log("Before");
       console.log(email);
       console.log(password);
+      */
       const getRegisteredEmailsAPI = "http://localhost:8000/api/getRegisteredEmails";
       const checkLoginAPI = "http://localhost:8000/api/checkLogin";
       const getUserInfoAPI = "http://localhost:8000/api/getUserInfo";
@@ -97,14 +99,15 @@ function Login() {
           console.error("Error fetching data:", error);
         });
 
+        /*
       console.log("After");
       console.log(email);
       console.log(password);
-
       console.log(registeredEmails);
+      */
 
       if (registeredEmails.includes(email)) {
-        console.log("Somethin somethin");
+        //console.log("Somethin somethin");
         let loginData;
 
         await fetch(checkLoginAPI, {
