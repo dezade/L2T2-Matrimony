@@ -8,18 +8,22 @@ function Profile() {
   const navigate = useNavigate();
   const userInfo = location.state.userInfo;
   const userid = userInfo.UserID;
+  const username = userInfo.Name;
   console.log(userInfo);
   const email = userInfo.Email;
   const handleUpdate = () => {
     navigate('/update', { state: { email } });
   };
-  const hadleFindSpouse = () => {
-    navigate('/findspouse', { state: { userid } });
-  }
+  const handleFindSpouse = () => {
+    navigate('/findspouse', { state: { username, userid } });
+  };
+  const handleUpdatePreference = () => {
+    navigate('/updatepreference', { state: { username, userid } });
+  };
   return (
     <div className="profile-container">
       <div className="profile-header"><h2>Welcome to Your Profile, {userInfo.Name}</h2></div>
-      <img className="profile-image" src='avatar.jpg' alt="Your face"/>
+      <img className="profile-image" src='avatar.jpg' alt="Your face" />
       <div className="profile-description">
         <h3>You can see your info here and customize the visibility of your personal info</h3>
       </div>
@@ -92,7 +96,10 @@ function Profile() {
       </div>
       <div className="profile-buttons">
         <button onClick={handleUpdate}>Update Info</button>
-        <button onClick={hadleFindSpouse}>FIND SPOUSE</button>
+        <button onClick={handleFindSpouse}>Find Spouse</button>
+      </div>
+      <div className="preference-button">
+        <button onClick={handleUpdatePreference}>Update your prferences for partner</button>
       </div>
     </div>
   );

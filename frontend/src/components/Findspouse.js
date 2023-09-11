@@ -9,6 +9,7 @@ function Findspouse() {
   const location = useLocation();
 
   const userid = location.state.userid;
+  const username = location.state.username;
   // SELECT NAME FROM USERS WHERE USERID={userid}
   // Query for matches and store the data in an array
 
@@ -205,7 +206,7 @@ function Findspouse() {
 
   return (
     <div>
-      <h1>Welcome, {userid}!</h1>
+      <h1>Welcome, {username}!</h1>
       <div className="findspouse-container">
 
         {/* {matches.map((match, index) => ( */}

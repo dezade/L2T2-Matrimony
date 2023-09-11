@@ -9,6 +9,8 @@ const {
   getProfile,
   getEmailFromUserID,
   getUserIDFromEmail,
+  failedLoginIncrement,
+  failedLoginZero,
 } = require("./profile_queries");
 
 const app = express();
@@ -186,6 +188,33 @@ app.post("/api/updateUser", async (req, res) => {
     //const result = 
     console.log(query);
     await connection.execute(query);
+    await connection.execute(`COMMIT`);
+    connection.close();
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "An error occurred." });
+  }
+});
+
+app.post("/api/successfulLogin", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    await connection.execute(failedLoginZero(id));
+    await connection.execute(`COMMIT`);
+    connection.close();
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "An error occurred." });
+  }
+});
+
+
+app.post("/api/wrongPassword", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    await connection.execute(failedLoginIncrement(id));
     await connection.execute(`COMMIT`);
     connection.close();
   } catch (error) {

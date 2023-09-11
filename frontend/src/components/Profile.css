@@ -93,4 +93,23 @@
   .profile-buttons button:hover {
     background-color: #555;
   }
-  
+
+  .preference-button {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .preference-button button {
+    font-size: 20px;
+    background-color: #2a05cf;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .preference-button button:hover {
+    background-color: rgb(211, 11, 57);
+  }
