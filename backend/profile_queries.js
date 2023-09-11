@@ -42,11 +42,18 @@ function getProfile(email) {
 }
 
 function getEmailFromUserID(id) {
-    console.log(id);
     return `
         SELECT EMAIL_ID
         FROM USERS
         WHERE USERID = ${id}
+    `;
+}
+
+function getUserIDFromEmail(email) {
+    return `
+        SELECT USERID
+        FROM USERS
+        WHERE EMAIL_ID = '${email}'
     `;
 }
 
@@ -56,4 +63,5 @@ module.exports = {
     checkUserExistence,
     getProfile,
     getEmailFromUserID,
+    getUserIDFromEmail,
 };

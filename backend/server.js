@@ -8,6 +8,7 @@ const {
   checkUserExistence,
   getProfile,
   getEmailFromUserID,
+  getUserIDFromEmail,
 } = require("./profile_queries");
 
 const app = express();
@@ -36,7 +37,7 @@ app.get("/", async (req, res) => {
       };
     });
 
-    console.log(arr);
+    //console.log(arr);
     res.send(arr);
 
     connection.close();
@@ -52,7 +53,7 @@ app.get("/api/getRegisteredEmails", async (req, res) => {
     const result = await connection.execute(getAllEmails());
 
     const registeredEmails = result.rows.map((row) => row[0]).flat();
-    console.log(registeredEmails);
+    //console.log(registeredEmails);
     res.send(registeredEmails);
 
     connection.close();
@@ -67,13 +68,13 @@ app.post("/api/checkLogin", async (req, res) => {
 
   try {
     const connection = await oracledb.getConnection(dbConfig);
-    console.log(checkUserExistence(email, password));
+    //console.log(checkUserExistence(email, password));
     const result = await connection.execute(
       checkUserExistence(email, password)
     );
 
     const userCount = result.rows.map((row) => row[0]).flat();
-    console.log(userCount[0]);
+    //console.log(userCount[0]);
     connection.close();
 
     if (userCount[0] === 1) {
@@ -139,6 +140,56 @@ app.post("/api/emailFromID", async (req, res) => {
     const result = await connection.execute(getEmailFromUserID(num));
 
     if (result.rows.length === 1) {
+      const returnID = {
+        email: result.rows[0][0],
+      };
+      res.json(returnID);
+      //console.log(returnID);
+    } else {
+      res.status(404).json({ success: false, message: "User not found." });
+    }
+
+    connection.close();
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "An error occurred." });
+  }
+});
+
+app.post("/api/IDFromEmail", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    const result = await connection.execute(getUserIDFromEmail(email));
+    console.log(getUserIDFromEmail(email));
+    if (result.rows.length === 1) {
+      const returnID = {
+        userid: result.rows[0][0],
+      };
+      //console.log(returnID);
+      res.json(returnID);
+    } else {
+      res.status(404).json({ success: false, message: "User not found." });
+    }
+    connection.close();
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "An error occurred." });
+  }
+});
+
+
+app.post("/api/updateUser", async (req, res) => {
+  const { queryStorage } = req.body;
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    //const result = 
+    let inputString = queryStorage;
+    console.log(inputString);
+    await connection.execute(inputString);
+    //await connection.execute(`SELECT * FROM users`);
+/*
+    if (result.rows.length === 1) {
       //console.log(result.rows[0][0]);
       //const returnID = result.rows[0][0];
       const returnID = {
@@ -150,7 +201,7 @@ app.post("/api/emailFromID", async (req, res) => {
     } else {
       res.status(404).json({ success: false, message: "User not found." });
     }
-
+*/
     connection.close();
   } catch (error) {
     console.error("Error:", error);
