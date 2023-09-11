@@ -106,6 +106,14 @@ function signUp(userInfo) {
     `;
 }
 
+function deleteUser(id) {
+    return `
+        DELETE FROM USERS
+        WHERE USERID = ${id}
+    `;
+}
+
+
 module.exports = {
     getAllUsers,
     getAllEmails,
@@ -116,4 +124,5 @@ module.exports = {
     failedLoginZero,
     failedLoginIncrement,
     signUp,
+    deleteUser,
 };
