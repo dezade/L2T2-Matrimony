@@ -50,7 +50,7 @@ BEGIN
 				PASS_IN,
 				NAME_IN,
 				GENDER_IN,
-				DOB_IN,
+				TO_DATE(DOB_IN, 'YYYY-MM-DD'),
 				EMAIL_IN,
 				CONTACT_IN,
 				FATHER_IN,
