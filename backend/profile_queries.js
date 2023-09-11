@@ -73,6 +73,39 @@ function failedLoginIncrement(id) {
     `;
 }
 
+function signUp(userInfo) {
+    return `
+        BEGIN
+            SIGNUP
+            (
+                    '${userInfo.Password}',
+                    '${userInfo.Name}',
+                    '${userInfo.Gender}',
+                    ${userInfo.DateOfBirth},
+                    '${userInfo.Email}',
+                    '${userInfo.Contact}',
+                    '${userInfo.Father}',
+                    '${userInfo.Mother}',
+                    ${userInfo.Height},
+                    '${userInfo.District}',
+                    '${userInfo.Thana}',
+                    '${userInfo.EducationLevel}',
+                    '${userInfo.Institution}',
+                    '${userInfo.Subject}',
+                    '${userInfo.Profession}',
+                    '${userInfo.CompanyName}',
+                    '${userInfo.CompanyDistrict}',
+                    '${userInfo.CompanyThana}',
+                    '${userInfo.H1}',
+                    '${userInfo.H2}',
+                    '${userInfo.H3}',
+                    '${userInfo.H4}',
+                    '${userInfo.H5}'
+            );
+        END;
+    `;
+}
+
 module.exports = {
     getAllUsers,
     getAllEmails,
@@ -82,4 +115,5 @@ module.exports = {
     getUserIDFromEmail,
     failedLoginZero,
     failedLoginIncrement,
+    signUp,
 };
