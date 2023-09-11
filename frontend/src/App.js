@@ -14,6 +14,7 @@ import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Rateus from './components/Rateus';
 import Updatepreference from './components/Updatepreference';
+import Delete from './components/Delete';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -37,6 +38,7 @@ function App() {
           <Route path="/findspouse" element={<Findspouse />} />
           <Route path="/rateus" element={<Rateus />} />
           <Route path="/updatepreference" element={<Updatepreference />} />
+          <Route path="/delete" element={<Delete />} />
         </Routes>
       <Footer />
       </div>

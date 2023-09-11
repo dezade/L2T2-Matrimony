@@ -11,7 +11,7 @@ function Sidebar({ isOpen, onClose }) {
       <ul>
         <li><a href="/">Menu Item 1</a></li>
         <li><a href="/rateus">Rate us</a></li>
-        <li><a href="/">Menu Item 3</a></li>
+        <li><a href="/delete">Delete account</a></li>
         {/* Add more menu items as needed */}
       </ul>
     </div>

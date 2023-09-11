@@ -1,0 +1,106 @@
+/* Delete.css */
+
+/* Style the main container */
+.delete-container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 90px;
+    margin-bottom: 106px;
+}
+
+/* Style the label */
+.label {
+    font-size: 16px;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* Style the input fields */
+.input-field {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Style the delete button */
+.delete-container button {
+    background-color: #2e50d8;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-container button:hover {
+    background-color: #c82333;
+}
+
+/* Center the button */
+.delete-container button {
+    display: block;
+    margin: 0 auto;
+}
+
+.error-message {
+    color: red;
+}
+
+.confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+}
+
+.confirmation-popup p {
+    margin-bottom: 10px;
+}
+
+.confirmation-popup button {
+    background-color: #c82333;
+    width: 80px;
+    margin: 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: inline-block; /* Added to display buttons side by side */
+}
+
+.confirmation-popup button:hover {
+    background-color: #ddd;
+}
+
+.confirmation-popup .no-button {
+    background-color: green; /* Set the background color to green */
+    color: white; /* Set the text color to white */
+    border: none; /* Remove the button border */
+}
+
+.confirmation-popup .no-button:hover {
+    background-color: #ddd; /* Change the hover color for the "No" button */
+}
