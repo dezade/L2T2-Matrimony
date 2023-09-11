@@ -270,27 +270,30 @@ function Update() {
     setData("");
     let query = "";
     if (userAttr.includes(attribute)) {
-      query =
-        query +
-        `UPDATE USERS SET ${attribute} = '${data}' WHERE USERID = ${userid};`;
+      query = `UPDATE USERS SET ${attribute} = '${data}' WHERE USERID = ${userid}`;
     } else if (eduAttr.includes(attribute)) {
-      query =
-        query +
-        `UPDATE EDUCATIONS SET ${attribute} = '${data}' WHERE USERID = ${userid};`;
+      query = `UPDATE EDUCATIONS SET ${attribute} = '${data}' WHERE USERID = ${userid}`;
     } else if (jobAttr.includes(attribute)) {
-      query =
-        query +
-        `UPDATE OCCUPATIONS SET ${attribute} = '${data}' WHERE USERID = ${userid};`;
+      query = `UPDATE OCCUPATIONS SET ${attribute} = '${data}' WHERE USERID = ${userid}`;
     } else if (hobbyAttr.includes(attribute)) {
-      query =
-        query +
-        `UPDATE HOBBIES SET ${attribute} = '${data}' WHERE USERID = ${userid};`;
+      query = `UPDATE HOBBIES SET ${attribute} = '${data}' WHERE USERID = ${userid}`;
     } else {
       /// do something about location here
     }
     //queryStorage.append(query);
-    const newStorage = queryStorage + query;
+    /*
+    let newStorage;
+    if(queryStorage === "")
+    {
+        newStorage = queryStorage + query;
+    }
+    else
+    {
+        newStorage = queryStorage + "\n" + query;
+    }
     setQueryStorage(newStorage);
+    */
+   setQueryStorage(prevStorage => [...prevStorage, query]);
   };
 
   const handleSubmit = async () => {
@@ -305,30 +308,35 @@ function Update() {
     }, 3000);
     //stored query will be executed
     console.log(queryStorage);
+    /*
     const newStorage = "`" + queryStorage + "`";
     setQueryStorage(newStorage);
+    */
     const updateUserAPI = "http://localhost:8000/api/updateUser";
-    await fetch(updateUserAPI, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ queryStorage }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not OK");
-        }
-        return response.json();
-      })
-      /*
-            .then((data) => {
-              loginData = data;
+    queryStorage.map((query) => {
+        return fetch(updateUserAPI, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not OK");
+              }
+              return response.json();
             })
-            */
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+            /*
+                  .then((data) => {
+                    loginData = data;
+                  })
+                  */
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+    });
+    
   };
   return (
     <div className="updateinfo-container">
