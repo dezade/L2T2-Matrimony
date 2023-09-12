@@ -7,6 +7,7 @@ function Updatepreference() {
     const navigate = useNavigate();
     const userid = location.state.userid; // for query purpose
     const username = location.state.username;
+    const [queryStorage, setQueryStorage] = useState('');
     const [prefGender, setPrefGender] = useState('');
     const [prefDistrict, setPrefDistrict] = useState('');
     const [prefOccupation, setPrefOccupation] = useState('');
@@ -133,12 +134,44 @@ function Updatepreference() {
     };
     const [notification, setNotification] = useState('');
     const handleUpdatePref = () => {
-        //query for updating preference
-        setNotification("Your preferences are updated!\nYou will be redirected to your profile shortly");
+        const updateUserAPI = "http://localhost:8000/api/updateUser";
+        queryStorage.map((query) => {
+            return (
+                fetch(updateUserAPI, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ query }),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not OK");
+                        }
+                        return response.json();
+                    })
+                    /*
+                        .then((data) => {
+                          loginData = data;
+                        })
+                        */
+                    .catch((error) => {
+                        console.error("Error fetching data:", error);
+                    })
+            );
+        });
+        setNotification("Your preferences are updated!\nYou will be redirected to your suggestion page shortly");
         setTimeout(() => {
             setNotification(null);
             navigate('/findspouse', { state: { username, userid } });
         }, 1500);
+    };
+
+    const handleUpdate = async (attribute, data) => {
+
+        console.log(attribute + " " + data);
+        let query = `UPDATE PARTNER_PREFERENCE SET ${attribute} = '${data}' WHERE USERID = ${userid}`;
+        setQueryStorage((prevStorage) => [...prevStorage, query]);
     };
 
     return (
@@ -156,6 +189,7 @@ function Updatepreference() {
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                 </select>
+                <button onClick={() => handleUpdate("PREFERED_GENDER", prefGender)}>Update</button>
             </div>
 
             <div className="input-container">
@@ -172,6 +206,7 @@ function Updatepreference() {
                         </option>
                     ))}
                 </select>
+                <button onClick={() => handleUpdate("PREFERED_DISTRICT", prefDistrict)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Maximum height(cm): </label>
@@ -181,6 +216,7 @@ function Updatepreference() {
                     value={maxHeight}
                     onChange={(e) => setMaxHeight(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("MAX_HEIGHT_CM", maxHeight)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Minimum height(cm): </label>
@@ -190,6 +226,7 @@ function Updatepreference() {
                     value={minHeight}
                     onChange={(e) => setMinHeight(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("MIN_HEIGHT_CM", minHeight)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Education level: </label>
@@ -221,6 +258,7 @@ function Updatepreference() {
                     <option value="PhD">PhD</option>
                     <option value="Others">Others</option>
                 </select>
+                <button onClick={() => handleUpdate("PREFERED_EDUCATION_LEVEL", prefEduLevel)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Preferred Institution: </label>
@@ -238,6 +276,7 @@ function Updatepreference() {
                     )
                     )}
                 </select>
+                <button onClick={() => handleUpdate("PREFERED_EDUCATION_INST", prefEduIns)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Maximum age: </label>
@@ -247,6 +286,7 @@ function Updatepreference() {
                     value={maxAge}
                     onChange={(e) => setMaxAge(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("MAX_AGE", maxAge)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Minimum age: </label>
@@ -256,6 +296,7 @@ function Updatepreference() {
                     value={minAge}
                     onChange={(e) => setMinAge(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("MIN_AGE", minAge)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Profession: </label>
@@ -302,6 +343,7 @@ function Updatepreference() {
                     <option value="Others">Others</option>
                     <option value="Not anything particularly">Not anything particularly</option>
                 </select>
+                <button onClick={() => handleUpdate("PREFERED_OCCUPATION", prefOccupation)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Preferred hobby 1: </label>
@@ -311,6 +353,7 @@ function Updatepreference() {
                     value={prefHobby1}
                     onChange={(e) => setPrefHobby1(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("PREFERED_HOBBY_1", prefHobby1)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Preferred hobby 2: </label>
@@ -320,6 +363,7 @@ function Updatepreference() {
                     value={prefHobby2}
                     onChange={(e) => setPrefHobby2(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("PREFERED_HOBBY_2", prefHobby2)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Preferred hobby 3: </label>
@@ -328,7 +372,8 @@ function Updatepreference() {
                     type="text"
                     value={prefHobby3}
                     onChange={(e) => setPrefHobby3(e.target.value)}
-                />
+                /><button onClick={() => handleUpdate("PREFERED_HOBBY_3", prefHobby3)}>Update</button>
+
             </div>
             <div className="input-container">
                 <label className="label">Preferred hobby 4: </label>
@@ -338,6 +383,7 @@ function Updatepreference() {
                     value={prefHobby4}
                     onChange={(e) => setPrefHobby4(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("PREFERED_HOBBY_4", prefHobby4)}>Update</button>
             </div>
             <div className="input-container">
                 <label className="label">Preferred hobby 5: </label>
@@ -347,8 +393,9 @@ function Updatepreference() {
                     value={prefHobby5}
                     onChange={(e) => setPrefHobby5(e.target.value)}
                 />
+                <button onClick={() => handleUpdate("PREFERED_HOBBY_5", prefHobby5)}>Update</button>
             </div>
-            <button onClick={handleUpdatePref}>Submit changes</button>
+            <button onClick={() => handleUpdatePref()}>Submit changes</button>
             {notification && (
                 <div className="notification">
                     <p>{notification}</p>

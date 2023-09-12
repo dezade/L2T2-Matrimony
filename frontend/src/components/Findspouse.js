@@ -17,43 +17,74 @@ function Findspouse() {
     navigate(`/spouse`, { state: { index, userid } });
   };
   /*** some stuff ***/
-  const matchID = [501, 502, 503, 504, 505];
+  //const matchID = [501, 502, 503, 504, 505];
+
   const [matchEmails, setMatchEmails] = useState([]);
   const [matchResults, setMatchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  
 
   useEffect(() => {
     const emailFromIDAPI = "http://localhost:8000/api/emailFromID";
     const getUserInfoAPI = "http://localhost:8000/api/getUserInfo";
+    const getPreferredUsersAPI = "http://localhost:8000/api/getPreferredUsers"; // Adjust the API URL
 
-    // Use Promise.all to fetch email data for all match IDs
-    const emailPromises = matchID.map((num) => {
-      return fetch(emailFromIDAPI, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ num }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not OK");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          return data.email;
-        })
-        .catch((error) => {
-          console.error("Error fetching email data:", error);
+    const tempQuery = `
+    SELECT U.USERID
+    FROM USERS U
+    JOIN (SELECT * FROM PARTNER_PREFERENCE WHERE USERID = ${userid}) ME
+    ON (U.GENDER = ME.PREFERED_GENDER
+    AND (SYSDATE - U.DATE_OF_BIRTH)/365 BETWEEN ME.MIN_AGE AND ME.MAX_AGE
+    AND	U.HEIGHT_CM BETWEEN ME.MIN_HEIGHT_CM AND ME.MAX_HEIGHT_CM
+    )
+    `;
+
+    setSearchQuery(tempQuery);
+
+    async function fetchData() {
+      try {
+        // Fetch preferred users
+        const responsePreferredUsers = await fetch(getPreferredUsersAPI, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ searchQuery }),
         });
-    });
 
-    Promise.all(emailPromises)
-      .then((emails) => {
+        if (!responsePreferredUsers.ok) {
+          throw new Error("Network response was not OK");
+        }
+
+        const preferredUsersData = await responsePreferredUsers.json();
+        console.log(preferredUsersData);
+        const emailPromises = preferredUsersData.map((num) => {
+          return fetch(emailFromIDAPI, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ num }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not OK");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              return data.email;
+            })
+            .catch((error) => {
+              console.error("Error fetching email data:", error);
+            });
+        });
+
+        const emails = await Promise.all(emailPromises);
         setMatchEmails(emails);
         console.log(emails);
 
-        // Now that you have emails, you can fetch user info
+        // Fetch user info based on emails
         const userInfoPromises = emails.map((email) => {
           return fetch(getUserInfoAPI, {
             method: "POST",
@@ -73,19 +104,17 @@ function Findspouse() {
             });
         });
 
-        Promise.all(userInfoPromises)
-          .then((data) => {
-            setMatchResults(data);
-            console.log(data);
-          })
-          .catch((error) => {
-            console.error("Error fetching user info:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error fetching email data:", error);
-      });
-  }, []);
+        const userInfoData = await Promise.all(userInfoPromises);
+        setMatchResults(userInfoData);
+        console.log(userInfoData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    // Call the fetchData function immediately
+    fetchData();
+  }, [searchQuery]); // Add searchQuery to the dependency array if needed
 
   /*
   const matchID = [501, 502, 503, 504, 505];
@@ -216,7 +245,7 @@ function Findspouse() {
             className='match-button'
             onClick={() => onMatchClick(match)}
           >
-            <img src={`image${index + 1}.jpg`} alt={`Match ${index + 1}`} />
+            <img src={`image${index%5 + 1}.jpg`} alt={`Match ${index + 1}`} />
             {`Match ${index + 1}`}
           </button>
         ))}

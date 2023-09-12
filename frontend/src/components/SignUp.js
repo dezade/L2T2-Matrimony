@@ -1348,7 +1348,7 @@ function SignUp() {
         />
       </div>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <button className="signup-button" onClick={handleSignup}>
+      <button className="signup-button" onClick={() => handleSignup()}>
         Sign Up
       </button>
       {notification && (

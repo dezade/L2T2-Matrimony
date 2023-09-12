@@ -12,6 +12,7 @@ const {
   failedLoginIncrement,
   failedLoginZero,
   signUp,
+  deleteUser,
 } = require("./profile_queries");
 
 const app = express();
@@ -232,6 +233,42 @@ app.post("/api/signUp", async (req, res) => {
     console.log(signUp(userInfo));
     await connection.execute(signUp(userInfo));
     await connection.execute(`COMMIT`);
+    connection.close();
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "An error occurred." });
+  }
+});
+
+
+app.post("/api/delete", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    await connection.execute(deleteUser(id));
+    console.log(deleteUser(id));
+    await connection.execute(`COMMIT`);
+    connection.close();
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "An error occurred." });
+  }
+});
+
+
+app.post("/api/getPreferredUsers", async (req, res) => {
+  const { searchQuery } = req.body;
+
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    //console.log(checkUserExistence(email, password));
+    const result = await connection.execute(
+      searchQuery
+    );
+
+    const candidates = result.rows.map((row) => row[0]).flat();
+    //res.json(candidates);
+    res.send(candidates);
     connection.close();
   } catch (error) {
     console.error("Error:", error);
