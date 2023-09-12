@@ -91,14 +91,11 @@ print(districts)
 print(upazilas_2d)
 
 file = open("query.txt", "w")
-for i in range(1, 1001):
-    dis = r.randint(0, len(districts)-1)
-    up = len(upazilas_2d[dis])
-    up = r.randint(0, up-1)
-    file.write("INSERT INTO LOCATIONS VALUES('{0}', '{1}', '{2}');\n".format(i, districts[dis], upazilas_2d[dis][up]))
+i = 1
 
-file = open("districts.txt", "w")
-file.write(districts)
+for dis in range(len(districts)):
+    for up in range(len(upazilas_2d[dis])):
+        file.write("INSERT INTO LOCATIONS VALUES('{0}', '{1}', '{2}');\n".format(i, districts[dis], upazilas_2d[dis][up]))
+        i += 1
 
-file = open("thanas.txt", "w")
-for line
+

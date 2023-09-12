@@ -81,7 +81,7 @@ function signUp(userInfo) {
                     '${userInfo.Password}',
                     '${userInfo.Name}',
                     '${userInfo.Gender}',
-                    ${userInfo.DateOfBirth},
+                    '${userInfo.DateOfBirth}',
                     '${userInfo.Email}',
                     '${userInfo.Contact}',
                     '${userInfo.Father}',

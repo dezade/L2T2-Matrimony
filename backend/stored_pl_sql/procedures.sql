@@ -52,7 +52,7 @@ BEGIN
 				PASS_IN,
 				NAME_IN,
 				GENDER_IN,
-				TO_DATE(DOB_IN, 'YYYY-MM-DD'),
+				TO_DATE((DOB_IN || ' 01:00:00'), 'YYYY-MM-DD HH:MI:SS'),
 				EMAIL_IN,
 				CONTACT_IN,
 				FATHER_IN,
